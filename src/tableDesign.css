@@ -1,0 +1,27 @@
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th{
+    color:white;
+  }
+  th,
+  td {
+    border: 1px solid hsl(0, 100%, 2%);
+    text-align: left;
+    padding: 8px;
+    font-size: 20px;
+  }
+  
+  th {
+    background-color: rgb(23, 97, 31);
+  }
+  
+  td {
+    background-color: solid white;
+  }
+  
+h3{
+text-align: center;
+}

@@ -1,0 +1,29 @@
+#employeeForm {
+    padding: 5rem;
+    border: 1px solid rgba(10, 10, 10, 0.15);
+    border-radius: 1rem;
+    width: max-content;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(10, 10, 10, 0.20);
+    box-shadow: 0.25rem 0.25rem 0.5rem rgba(10, 10, 10, 0.15);
+  }
+  input,select{
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    border: hidden;
+    width: 300px;
+  }
+  .btn-submit {
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    background-color: #0a5025;
+    border: 1px solid #095c29;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: 0.25s ease-in-out;
+  }

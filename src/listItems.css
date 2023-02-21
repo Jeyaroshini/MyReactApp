@@ -1,0 +1,47 @@
+.list
+{
+    color:white;
+    width: 300px;
+    background-color: #bf07ac;
+    height: 50px;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+.list p{
+    padding: 10px;
+    position: relative;
+}
+.list p span 
+{
+    position:absolute;
+    right: 10px;
+    cursor:  pointer;
+}
+.trashIcon
+{
+    margin: 0 5px;
+    font-size: 15px;
+    border: 0;
+    cursor: pointer;
+}
+.icon-checkmark
+{
+    border-radius: 5px;
+    height: 20px;
+    width: 20px;
+    font-size: 18px;
+    border: 0;
+    background-color: rgb(202,156,24);
+    cursor: pointer;
+    color:white;
+    font-weight: bolder;
+}
+.list p input{
+    background-color: transparent;
+    border: 0;
+    color: white;
+    font-size: 18px;
+}
+.list p input:focus{
+    outline: none;
+}

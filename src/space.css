@@ -1,0 +1,24 @@
+.space{
+    text-align: center;
+    
+}
+
+h1{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.button-one
+{
+    margin-right: 20px;
+    background-color: lightblue;
+    color: black;
+    border-radius: 10px;
+    
+}
+.button-two
+{
+  margin-right: 4px;
+  background-color: yellow;
+  color: black;
+  border-radius: 10px;
+}
