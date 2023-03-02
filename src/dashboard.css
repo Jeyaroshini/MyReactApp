@@ -12,6 +12,10 @@
   background: #05590e;
   transition: all 0.5s ease;
 }
+.das
+{
+    margin-left: 350px;
+}
 .sidebar.active{
   width: 60px;
 }
@@ -43,7 +47,7 @@ img{
   background:#17a225;
 }
 .sidebar .nav-links li i{
-  min-width: 60px;
+  min-width: 44px;
   text-align: center;
   font-size: 18px;
   color: #fff;
@@ -168,8 +172,8 @@ nav .profile-details i{
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 0 20px;
-  margin-bottom: 26px;
+  padding: 0 25px;
+  margin-bottom: 35px;
 }
 .overview-boxes .box{
   display: flex;
@@ -248,10 +252,10 @@ nav .profile-details i{
 
 /* left box */
 .home-content .sales-boxes .recent-sales{
-  width: 65%;
+  width: 95%;
   background: #fff;
   padding: 20px 30px;
-  margin: 0 20px;
+  margin: 0 25px;
   border-radius: 12px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
@@ -265,7 +269,7 @@ nav .profile-details i{
   font-weight: bold;
   display: table;
   color: #05590e;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   /* margin-bottom: 10px; */
 }
 .sales-boxes .sales-details li.topic{
@@ -273,14 +277,13 @@ nav .profile-details i{
   background-color:#05590e;
   border: none;
   color: white;
-  padding: 7px ;
+  padding: 8px ;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
-  border-radius: 4px;
-    
+  margin: 8px 1px;
+  border-radius: 4px;   
 }
 .sales-boxes .sales-details li{
   list-style: none;
@@ -296,6 +299,7 @@ nav .profile-details i{
     border-style: hidden;
 
 }
+
 .sales-boxes .box .button{
   width: 100%;
   display: flex;
@@ -457,4 +461,5 @@ nav .profile-details i{
     left: 60px;
     width: calc(100% - 60px);
   }
+
 }
