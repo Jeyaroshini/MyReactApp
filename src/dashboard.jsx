@@ -13,6 +13,7 @@ import {
   faStar,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 library.add(faUser, faUsers, faAlignJustify, faHourglass, faStar, faPlus);
 const Dashboard = () => {
   const [employeeList, setEmployeeList] = useState([]);
@@ -26,11 +27,42 @@ const Dashboard = () => {
   const [joiningDate, setJoiningDate] = useState(null);
   const apiEndPoint = "http://192.168.43.101:7777/Employee/add";
   const apiEndPointUpdate = "http://192.168.43.101:7777/Employee/edit";
-  const [employeeSkill, setEmployeeSkill] = useState([]);
+  const [employeeSkill, setEmployeeSkill] = useState("");
   const [skills, setskills] = useState("");
+  const [experience,setExperience] = useState(null)
+  const [salary,setSalary] = useState(null)
+  const [department,setDepartment] = useState([])
+  const [employeeDepartment,setEmployeeDepartment] = useState("")
+  const [designation,setDesignation] = useState([])
+  const [employeeDesignation,setEmployeeDesignation] = useState("")
+  const[employementType,setEmployementType] = useState("")
+  const navigate = useNavigate()
+  const fetchDesignation = async () => { 
+    const {data} = await Axios.get(
+      "http://192.168.43.101:7777/desiginations"
+    )
+    const employeeDesignation = data
+    setDesignation(employeeDesignation)
+  }
+
+  useEffect(() => {
+    fetchDesignation()
+  },[])
+  const fetchDepartment = async () => {
+    const { data } = await Axios.get(
+      "http://192.168.43.101:7777/departments"
+    );
+    const employeeDepartment = data;
+    setDepartment(employeeDepartment);
+    console.log(employeeDepartment);
+  };
+
+  useEffect(() => {
+    fetchDepartment();
+  }, []);
   const fetchEmployeeSkill = async () => {
     const { data } = await Axios.get(
-      "http://192.168.43.101:7777/Employee/allskills"
+      "http://192.168.43.101:7777/allskills"
     );
     const employeeSkill = data;
     setEmployeeSkill(employeeSkill);
@@ -39,13 +71,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchEmployeeSkill();
-  }, []);
-  useEffect(() => {
-    const getPosts = async () => {
-      const { data: res } = await axios.get(apiEndPoint);
-      setPosts(res);
-    };
-    getPosts();
   }, []);
 
   const addPost = async () => {
@@ -59,35 +84,37 @@ const Dashboard = () => {
       ldate: null,
       employeeskills: [
         {
-          id: 20,
-          skillId: 3,
-          date: "2023-02-16T09:29:18.305+00:00",
-        },
+            skillId: skills
+        }
+    ],
+    department_id: employeeDepartment,
+    desigination_id: employeeDesignation,
+    employeeprojects: [
         {
-          id: 21,
-          skillId: 2,
-          date: "2023-02-16T09:29:18.305+00:00",
-        },
-        {
-          id: 22,
-          skillId: 1,
-          date: "2023-02-16T09:29:18.305+00:00",
-        },
-      ],
-      department_id: 1,
-      desigination_id: 1,
-      date: "2023-02-16T09:29:18.305+00:00",
-      employeeprojects: [],
+            project_title: "Employee Management System",
+            amount: 1000,
+            team: "Back End Develper"
+        }
+    ],
+    experience: experience,
+    employment_type: employementType,
+    status: "Active",
+    payroll: {
+        id: 1,
+        empId: 1,
+        salary: salary
+    }
     };
     await axios.post(apiEndPoint, post);
     setPosts([post, ...posts]);
+    console.log(post.department_id)
     if (
       employeeId !== "" &&
       firstName !== "" &&
       lastName !== "" &&
       email !== "" &&
       dateOfBirth !== "" &&
-      joiningDate !== ""
+      joiningDate !== "" && experience !== null && salary !== null &&  employementType !== ""
     ) {
       alert("Added Successfully");
     }
@@ -108,7 +135,6 @@ const Dashboard = () => {
   const toggleModal = () => {
     setModal(!modal);
   };
-
   if (modal) {
     document.body.classList.add("active-modal");
   } else {
@@ -135,10 +161,28 @@ const Dashboard = () => {
   const handleSkill = (event) => {
     setskills(event.target.value);
   };
-
+  const handleExperience = (event) => {
+    setExperience(event.target.value)
+  }
+  const handleSalary = (event) => {
+    setSalary(event.target.value)
+  }
+  const handleDepartment = (event) =>
+  {
+    setEmployeeDepartment(event.target.value)
+    console.log(employeeDepartment)
+  }
+  const handleDesignation = (event) => 
+  {
+    setEmployeeDesignation(event.target.value)
+  }
+  const handleEmployementType = (event) =>
+  {
+    setEmployementType(event.target.value)
+  }
   const fetchProducts = async () => {
     const { data } = await Axios.get(
-      "http://192.168.43.101:7777/Employee/allemp"
+      "http://192.168.43.101:7777/Employee/all_employee"
     );
     const employeeList = data;
     setEmployeeList(employeeList);
@@ -166,8 +210,8 @@ const Dashboard = () => {
           <li>
             <a href="#">
               <i class="bx bx-box"></i>
-              <span role="button" class="links_name">
-                <FontAwesomeIcon icon={faAlignJustify} /> Projects
+              <span role="button" class="links_name" >
+                <FontAwesomeIcon icon={faAlignJustify} onClick={() => {navigate("/addProject")}}/> Projects
               </span>
             </a>
           </li>
@@ -196,7 +240,7 @@ const Dashboard = () => {
           <li>
             <a href="#">
               <i class="bx bx-book-alt"></i>
-              <span class="links_name">Payroll</span>
+              <span role="button" class="links_name" onClick={() => {navigate("/payroll")}}>Payroll</span>
             </a>
           </li>
           <li>
@@ -289,7 +333,6 @@ const Dashboard = () => {
               <i class="bx bxs-cart-download cart four"></i>
             </div>
           </div>
-
           <div class="sales-boxes">
             <div class="recent-sales box">
               <div class="title">Employee List</div>
@@ -325,17 +368,39 @@ const Dashboard = () => {
                   })}
                 </ul>
                 <ul class="details">
-                  <li class="topic">Action</li>
+                  <li class="topic">Department</li>
                   {employeeList.map((item) => {
                     return (
-                      <div>
-                        <button>Edit</button>
-                        <button>Delete</button>
-                      </div>
+                  <li>{item.department}</li>
+                    );
+                  })}
+                </ul>
+                <ul class="details">
+                  <li class="topic">Designation</li>
+                  {employeeList.map((item) => {
+                    return (
+                  <li>{item.desigination}</li>
+                    );
+                  })}
+                </ul>
+                <ul class="details">
+                  <li class="topic">Experience</li>
+                  {employeeList.map((item) => {
+                    return (
+                  <li>{item.experience}</li>
+                    );
+                  })}
+                </ul>
+                <ul class="details">
+                  <li class="topic">Employee Type</li>
+                  {employeeList.map((item) => {
+                    return (
+                  <li>{item.employment_type}</li>
                     );
                   })}
                 </ul>
               </div>
+      
               <button onClick={toggleModal} className="button-addemp">
                 <FontAwesomeIcon icon={faPlus} /> Add Employee
               </button>
@@ -351,43 +416,64 @@ const Dashboard = () => {
                       placeholder="Employee Id"
                       onChange={handleEmployeeId}
                       required
-                    ></input>
-                    <br />
+                    ></input>  <span></span>
                     <input
                       type="text"
                       placeholder="First Name"
                       onChange={handleFirstName}
                       required
-                    ></input>
+                    ></input>  <span></span>
                     <input
                       type="text"
                       placeholder="Last Name"
                       onChange={handleLastName}
                       required
-                    ></input>
+                    ></input>  <span></span>
                     <input
                       type="email"
                       placeholder="Email"
                       onChange={handleEmail}
                       required
-                    ></input>
+                    ></input>  <span></span>
                     <input
                       type="text"
                       placeholder="Date Of Birth (yyyy-mm-dd)"
                       onChange={handleDateofBirth}
                       required
-                    ></input>
+                    ></input>  <span></span>
                     <input
                       type="text"
                       placeholder="Joining Date (yyyy-mm-dd)"
                       onChange={handleJoiningDate}
                       required
-                    ></input>
+                    ></input>  <span></span>
+                    <input type="number" placeholder="Experience" onChange={handleExperience} required></input>  <span></span>
+                    <input type="number" placeholder="Salary" onChange={handleSalary} required></input>  <span></span>
+                    <input type="text" placeholder="Intern or Full Time" onChange={handleEmployementType}></input><br />  <span></span>
+                    <b><label>Select Skill</label></b><br/>
                     <select value={employeeSkill.skill} onChange={handleSkill}>
                       {employeeSkill.map((item) => {
-                        return <option value={item.skill}>{item.skill}</option>;
+                        return <option value={item.sid}>{item.skill}</option>;
                       })}
-                    </select>
+                    </select> <br />
+                    <b><label>Select Department</label></b><br/>
+                    <select value={department.depart} onChange={handleDepartment}>
+                    {department.map(item => {
+                    return(
+                    <option value={item.did}>{item.depart}</option>
+                    )
+                    }
+                    )}
+                 </select><br />
+                 <b><label>Select Designation</label></b><br/>
+                    <select value={designation.design} onChange={handleDesignation}>
+                    {designation.map(item => {
+                    return(
+                    <option value={item.id}>{item.design}</option>
+                    )
+                    }
+                    )}
+                 </select> <br />
                     <table className="table">
                       <tbody>
                         {posts.map((post) => (
@@ -423,6 +509,11 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
+      <div className="das">
+      <iframe width="1000"
+       height="550" 
+       src="https://lookerstudio.google.com/embed/reporting/de451bff-bdf6-4124-bca1-5a70e551627f/page/tEnnC" 
+       frameborder="0" style={{border:0}}  allowfullscreen></iframe></div>
     </div>
   );
 };
